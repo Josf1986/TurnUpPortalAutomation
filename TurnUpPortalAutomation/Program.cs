@@ -85,25 +85,38 @@ else
     Console.WriteLine("Time record has not been created");
 }
 
+// Edit the new Time Record
+Thread.Sleep(3000);
 
+IWebElement EditButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[6]/td[5]/a[1]"));
+EditButton.Click();
 
+Thread.Sleep(5000);
+driver.FindElement(By.Id("Code")).Clear();
+driver.FindElement(By.Id("Code")).SendKeys("Test Edit Practise");
 
+driver.FindElement(By.Id("Description")).Clear();
+driver.FindElement(By.Id("Description")).SendKeys("Test Edit Time");
 
+driver.FindElement(By.Id("SaveButton")).Click();
+Thread.Sleep(3000);
 
+driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")).Click();
 
+Thread.Sleep(3000);
 
+IWebElement newEditCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[6]/td[1]"));
+if (newEditCode.Text == "Test Edit Practise")
+{
+    Console.WriteLine("New time record has been edited successfully");
+}
+else
+{
+    Console.WriteLine("Time record has not been edited");
+}
 
+//Delete the new Time Record
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+IWebElement DeleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[6]/td[5]/a[2]"));
+DeleteButton.Click();
+driver.SwitchTo().Alert().Accept();
