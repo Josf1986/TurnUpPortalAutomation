@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 
 // Open chrome browser
 IWebDriver driver = new ChromeDriver();
@@ -105,7 +106,8 @@ driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")).Click();
 
 Thread.Sleep(3000);
 
-IWebElement newEditCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[6]/td[1]"));
+IWebElement newEditCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
 if (newEditCode.Text == "Test Edit Practise")
 {
     Console.WriteLine("New time record has been edited successfully");
@@ -117,6 +119,19 @@ else
 
 //Delete the new Time Record
 
-IWebElement DeleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[6]/td[5]/a[2]"));
+IWebElement DeleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
 DeleteButton.Click();
 driver.SwitchTo().Alert().Accept();
+Thread.Sleep(2000);
+
+IWebElement DeletedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+if (DeletedCode.Text == "Test Edit Practise")
+{
+    Console.WriteLine("Edited time record has not been deleted");
+}
+else
+{
+   Console.WriteLine("Edited time record has been deleted successsfully");
+}
+
